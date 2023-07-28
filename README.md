@@ -5,6 +5,8 @@ To clone this repository using HTTPS run the code below in your terminal:
 git clone https://github.com/heispv/bioinformatics.git
 ```
 
+* You can retrieve all the functions within this [Python file](https://github.com/heispv/bioinformatics/blob/master/functions.py). :wink:
+
 
 | Notebook Name | Comment | Publish Date |
 | ----- | ----- | ----- |
