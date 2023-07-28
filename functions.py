@@ -140,3 +140,24 @@ def neighborhood(pattern, d):
             neighbors.add(pattern[0] + suffix_neighbor)
 
     return neighbors
+#=============================================================================
+def freq_word_with_mistmatch(seq, k, d):
+    patterns = []
+    freq_map = {}
+    n = len(seq)
+
+    for i in range(n - k + 1):
+        pattern = seq[i : i+k]
+        neighbors = neighborhood(pattern, d)
+        for neighbor in neighbors:
+            if neighbor not in freq_map:
+                freq_map[neighbor] = 1
+            else:
+                freq_map[neighbor] += 1
+
+    max_value = np.max(list(freq_map.values()))
+    for key, value in freq_map.items():
+        if value == max_value:
+            patterns.append(key)
+
+    return patterns
