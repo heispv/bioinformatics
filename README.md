@@ -6,7 +6,8 @@ git clone https://github.com/heispv/bioinformatics.git
 ```
 
 * You can retrieve all the functions within this [Python file](https://github.com/heispv/bioinformatics/blob/master/functions.py). :wink:
-
+***
+In this collection, you will find all the notebooks along with their file descriptions and publish dates. Each notebook contains examples that showcase the results of various functions. 🙂
 
 | Notebook Name | Comment | Publish Date |
 | ----- | ----- | ----- |
