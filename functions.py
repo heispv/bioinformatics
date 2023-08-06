@@ -74,6 +74,17 @@ def pattern_index(sequence, pattern):
 
   return pattern_idx
 #=============================================================================
+def approximate_pattern_matching(pattern, seq, d):
+    position = []
+    k = len(pattern)
+    n = len(seq)
+
+    for i in range(n - k + 1):
+        if hamming_distance(seq[i : i+k], pattern) <= d:
+            position.append(i)
+
+    return position
+#=============================================================================
 def skew_min_idx(skew_list):
     if not skew_list:
         return []
@@ -141,6 +152,26 @@ def neighborhood(pattern, d):
 
     return neighbors
 #=============================================================================
+def neighborhood_list(pattern, d):
+    if d == 0:
+        return pattern
+    if len(pattern) == 1:
+        return {'A', 'T', 'C', 'G'}
+
+    neighbors = set()
+
+    suffix_pattern = pattern[1:]
+    suffix_neighbors = neighborhood_list(suffix_pattern, d)
+
+    for suffix_neighbor in suffix_neighbors:
+        if hamming_distance(suffix_pattern, suffix_neighbor) < d:
+            for x in 'ATCG':
+                neighbors.add(x + suffix_neighbor)
+        else:
+            neighbors.add(pattern[0] + suffix_neighbor)
+
+    return list(neighbors)
+#=============================================================================
 def freq_word_with_mistmatch(seq, k, d):
     patterns = []
     freq_map = {}
@@ -161,3 +192,27 @@ def freq_word_with_mistmatch(seq, k, d):
             patterns.append(key)
 
     return patterns
+#=============================================================================
+def freq_word_with_mistmatch_reverse(seq, k, d):
+    patterns = []
+    freq_map = {}
+    n = len(seq)
+
+    for i in range(n - k + 1):
+        pattern = seq[i : i+k]
+        neighbors = neighborhood_list(pattern, d)
+        rev_neighbors = [reverse_complement(neighbor) for neighbor in neighbors]
+
+        for neighbor in neighbors + rev_neighbors:
+            if neighbor not in freq_map:
+                freq_map[neighbor] = 1
+            else:
+                freq_map[neighbor] += 1
+
+    max_value = np.max(list(freq_map.values()))
+    for key, value in freq_map.items():
+        if value == max_value:
+            patterns.append(key)
+
+    return patterns
+#=============================================================================
