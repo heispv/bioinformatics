@@ -134,7 +134,7 @@ def immidiate_neighbors(pattern):
 #=============================================================================
 def neighborhood(pattern, d):
     if d == 0:
-        return pattern
+        return {pattern}
     if len(pattern) == 1:
         return {'A', 'T', 'C', 'G'}
 
