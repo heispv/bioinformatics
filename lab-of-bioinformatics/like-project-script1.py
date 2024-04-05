@@ -21,3 +21,5 @@ if __name__ == '__main__':
     for i in ids:
         if dseq.get(i, 0) != 0:
             print(">" + i + '\n' + dseq[i])
+        else:
+            print(f"WARNING: Sequence {i} is not found", file=sys.stderr)
